@@ -23,7 +23,7 @@ cd Financial-tracker
 ```
 >Либо просто запустить в пайчарме (он такое позволяет). Насчет остальных IDE хз
 
-2. Если выводит `permission denied`:
+2. Если выводит `permission denied`
 ```
 chmod +x setup.sh
 ./setup.sh
