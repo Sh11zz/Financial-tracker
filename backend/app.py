@@ -6,7 +6,6 @@ app = Flask(__name__)
 def index():
     return "hello world"
 
-
 @app.route("/api/users", methods=['GET'])
 def users():
     return jsonify(
