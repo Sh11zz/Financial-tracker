@@ -1,9 +1,9 @@
-echo "🔧 Setting up FinTrack project..."
+echo "Сеттинг ап хуйню эту финтраковскую"
 
 # ----------------------------
 # Backend setup (Flask)
 # ----------------------------
-echo "📦 Setting up backend..."
+echo "Ставлю бэкенд (кто не сделает коммит, тот пидорас)"
 
 python3 -m venv .venv
 source .venv/bin/activate
@@ -14,7 +14,7 @@ pip install -r requirements.txt
 # ----------------------------
 # Frontend setup (React + Vite)
 # ----------------------------
-echo "⚛️ Setting up frontend..."
+echo "Тут мая хуйня фронтендерская"
 
 cd frontend
 npm install
@@ -22,11 +22,11 @@ cd ..
 
 echo "✅ Setup complete!"
 echo ""
-echo "To run the backend:"
+echo "Вот так вот запустить бэкенд:"
 echo "  source .venv/bin/activate"
 echo "  cd backend"
 echo "  python app.py"
 echo ""
-echo "To run the frontend:"
+echo "Вот так вот запустить фронтенд:"
 echo "  cd frontend"
 echo "  npm run dev"
