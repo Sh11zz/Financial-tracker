@@ -29,7 +29,7 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-3. после вывода `✅ Setup complete!` вставить команды
+3. после вывода `Все готово. Здоровья погибшим` вставить команды
 
  ```
  source .venv/bin/activate
