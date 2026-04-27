@@ -14,13 +14,13 @@ pip install -r requirements.txt
 # ----------------------------
 # Frontend setup (React + Vite)
 # ----------------------------
-echo "Тут мая хуйня фронтендерская"
+echo "Тут моя хуйня фронтендерская"
 
 cd frontend
 npm install
 cd ..
 
-echo "✅ Setup complete!"
+echo "Все готово. Здоровья погибшим"
 echo ""
 echo "Вот так вот запустить бэкенд:"
 echo "  source .venv/bin/activate"
