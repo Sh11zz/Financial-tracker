@@ -1,10 +1,16 @@
-import { BrowserRouter, Routes, Route }
-import Login from "../pages/login.jsx"
+import { BrowserRouter, Routes, Route } from 'react-router-dom' 
+import Login from '../pages/login.jsx'
+import Welcome from '../pages/welcome.jsx'
+
 
 const AppRouter = () => {
-    <BrowserRouter>
-        <Routes>
-            <Route path="/login" element={<login />}></Route>
-        </Routes>
-    </BrowserRouter>
+        return (
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Welcome />} />
+                <Route path="/login" element={<Login />} />
+            </Routes>
+        </BrowserRouter>)
 }
+
+export default AppRouter

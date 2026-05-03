@@ -18,6 +18,8 @@ echo "Тут моя хуйня фронтендерская"
 
 cd frontend
 npm install
+npm install react-router-dom
+npm install react-icons
 cd ..
 
 echo "Все готово. Здоровья погибшим"
