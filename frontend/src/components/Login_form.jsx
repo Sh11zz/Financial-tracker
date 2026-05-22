@@ -1,50 +1,76 @@
-import '../pages/login.css'
+import styles from '../pages/login.module.css'
 import { FaUser, FaLock, FaAt } from 'react-icons/fa'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function Auth_form() {
+export default function Auth_form() {
     const [isLogin, setIsLogin] = useState(true)
-    
+    const navigate = useNavigate()
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+
+    const handleLogin = (e) => {
+        e.preventDefault()
+        if (username === 'admin' && password === 'admin') {
+            navigate('/hello')
+        }
+        else {
+            alert('incorrect data')
+        }
+    }
+
+    const handleRegister = (e) => {
+        e.preventDefault()
+
+        
+    }
+
     return(
-        <div className='container'>
-            <div className={`signin_signup ${isLogin ? 'login-mode' : 'register-mode'}`}>
-{/* login form */}
-                <form className='form signin_form'>
-                    <h2 className='title'>Sign in</h2>
-                    <div className='input_field'>
-                        <FaUser className="icon" />
-                        <input className='input_element username' id='username_input' placeholder='Username' type='text' required />
-                    </div>
-                    <div className='input_field'>
-                        <FaLock className="icon" />
-                        <input className='input_element password' id='password_input' placeholder='Password' type='password' required />
-                    </div>
-                    <a href='' className='forgot_btn' id='forgot_btn'>Forgot password?</a>
-                    <button className='submit_btn' id='submit_btn' type='submit'>LOGIN</button>
-                    <p>Don't have an account? <a className='text' href='#' onClick={(e) => { e.preventDefault(); setIsLogin(false) }}>Sign up</a></p>
-                </form>
-{/* register form */}
-                <form className='form signup_form'>
-                    <h2 className='title'>Sign up</h2>
-                    <div className='input_field'>
-                        <FaUser className="icon" />
-                        <input className='input_element username' id='username_input' placeholder='Username' type='text' required />
-                    </div>
-                    <div className='input_field'>
-                        <FaAt className="icon" />
-                        <input className='input_element email' id='email_input' placeholder='Email' type='email' required />
-                    </div>
-                    <div className='input_field'>
-                        <FaLock className="icon" />
-                        <input className='input_element password' id='password_input' placeholder='Password' type='password' required />
-                    </div>
-                    <button className='submit_btn' id='submit_btn' type='submit'>Register</button>
-                    <p>Already have an account? <a className='text' href='#' onClick={(e) => { e.preventDefault(); setIsLogin(true) }}>Sign in</a></p>
-                </form>
+        <div className={styles.wrapper}>
+            <div className={styles.container}>
+                <div className={`${styles.signin_signup} ${isLogin ? styles["login-mode"] : styles["register-mode"]}`}>
+    {/* login form */}
+                    <form className={`${styles.form} ${styles.signin_form}`}>
+                        <h2 className={styles.title}>Sign in</h2>
+                        <div className={styles.input_field}>
+                            <FaUser className={styles.icon} />
+                            <input className={`${styles.input_element} ${styles.username}`} id='username_input' placeholder='Username' type='text'
+                            value={username} onChange={(e) => setUsername(e.target.value)} />
+                        </div>
+                        <div className={styles.input_field}>
+                            <FaLock className={styles.icon} />
+                            <input className={`${styles.input_element} ${styles.password}`} id='password_input' placeholder='Password' type='password' 
+                            value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        </div>
+                        <a href='' className={styles.forgot_btn} id='forgot_btn'>Forgot password?</a>
+                        <button onClick={handleLogin} className={styles.submit_btn} id='submit_btn' type='button'>LOGIN</button>
+                        <p>Don't have an account? <a className={styles.text} href='#' onClick={(e) => { e.preventDefault(); setIsLogin(false) }}>Sign up</a></p>
+                    </form>
+    {/* register form */}
+                    <form className={`${styles.form} ${styles.signup_form}`}>
+                        <h2 className={styles.title}>Sign up</h2>
+                        <div className={styles.input_field}>
+                            <FaUser className={styles.icon} />
+                            <input className={`${styles.input_element} ${styles.username}`} id='username_input' placeholder='Username' type='text' required
+                            onChange={(e) => setUsername(e.target.value)} />
+                        </div>
+                        <div className={styles.input_field}>
+                            <FaAt className={styles.icon} />
+                            <input className={`${styles.input_element} ${styles.email}`} id='email_input' placeholder='Email' type='email' required
+                            onChange={(e) => setEmail(e.target.value)} />
+                        </div>
+                        <div className={styles.input_field}>
+                            <FaLock className={styles.icon} />
+                            <input className={`${styles.input_element} ${styles.password}`} id='password_input' placeholder='Password' type='password' required
+                            onChange={(e) => setPassword(e.target.value)} />
+                        </div>
+                        <button onClick={handleRegister} className={styles.submit_btn} id='submit_btn' type='submit'>Register</button>
+                        <p>Already have an account? <a className={styles.text} href='#' onClick={(e) => { e.preventDefault(); setIsLogin(true) }}>Sign in</a></p>
+                    </form>
+                </div>
             </div>
         </div>
 
-    )
-}
-
-export default Auth_form
+        )
+    }

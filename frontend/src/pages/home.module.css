@@ -1,0 +1,122 @@
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('../imgs/rrt1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.left_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding-left: 320px;
+}
+
+.logo {
+    height: 40px;
+    width: 40px;
+    border: solid none;
+    border-radius: 5px;
+}
+
+.name {
+    font-size: 26px;
+}
+
+.right_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding-right: 320px;
+}
+
+.login_btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 26px;
+}
+
+.login_btn:hover {
+    color: rgb(199, 199, 200);
+    transition: 0.5s ease;
+}
+
+.reg_btn {
+    height: 45px;
+    width: 110px;
+    border-radius: 15px;
+    border-color: transparent;
+    color: #171616;
+}
+
+.reg_btn span {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    font-size: 20px;
+}
+
+.reg_btn:hover span {
+    transform: translateY(-1px);
+}
+.text_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.center_text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+}
+
+.center_text_1 {
+    font-size: 90px;
+}
+
+.center_text_2 {
+    font-size: 90px;
+}
+
+.center_text_3 {
+    font-size: 90px;
+}
+
+.reg_btn_2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 250px;
+    border-radius: 15px;
+    color: #ffffff;
+    background-color: transparent;
+    border: solid white 1px;
+    margin-top: 50px;
+}
+
+.reg_btn_2:hover span {
+    display: inline-block;
+    transition: 0.2s ease;
+    font-size: 15px;
+}

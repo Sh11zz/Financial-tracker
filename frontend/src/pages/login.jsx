@@ -1,10 +1,9 @@
 import Auth_form from "../components/Login_form"
-import './login.css'
 
-function Login() {
+export default function Login() {
     return(
-        <Auth_form />
+        <>
+            <Auth_form />
+        </>
     )
 }
-
-export default Login
