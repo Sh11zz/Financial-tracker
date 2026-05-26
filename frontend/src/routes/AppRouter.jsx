@@ -1,23 +1,29 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom' 
+import { Routes, Route } from 'react-router-dom' 
 import Home from '../pages/home.jsx'
-import Login from '../pages/login.jsx'
-import Main_page from '../pages/main_page.jsx'
+import Dashboard from '../pages/dashboard.jsx'
 import Not_found from '../pages/404.jsx'
-import Authenticated from '../pages/auth/authenticated.jsx'
-import Unauthenticated from '../pages/auth/unauthenticated.jsx'
+import Auth_form from '../pages/auth/login_form.jsx'
+import ProtectedRoute from '../pages/auth/protectedRoute.jsx'
+import About from '../pages/about.jsx'
+import Profile from '../pages/profile.jsx'
 
-const AppRouter = () => {
-        return(
-        <BrowserRouter>
-            <Routes>
-                <Route path='*' element={<Not_found />} />
-                <Route path='/' element={<Home />} />
-                <Route path='/hello' element={<Main_page />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/authenticated' element={<Authenticated />} />
-                <Route path='/unauthenticated' element={<Unauthenticated />} />
-            </Routes>
-        </BrowserRouter>)
+export default function AppRouter() {
+    const username = localStorage.getItem('username')
+
+    return(
+        <Routes>
+            <Route path='*' element={<Not_found />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/hello' element={
+                <ProtectedRoute>
+                    <Dashboard /> 
+                </ProtectedRoute>} />
+            <Route path='/login' element={<Auth_form />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/:username' element={
+                <ProtectedRoute>
+                    <Profile />
+                </ProtectedRoute>} />
+        </Routes>
+    )
 }
-
-export default AppRouter

@@ -1,31 +1,57 @@
-import styles from '../pages/login.module.css'
+import styles from '../login.module.css'
 import { FaUser, FaLock, FaAt } from 'react-icons/fa'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { loginUser, registerUser } from './auth.service'
+import { useSearchParams } from 'react-router-dom'
 
 export default function Auth_form() {
     const [isLogin, setIsLogin] = useState(true)
     const navigate = useNavigate()
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
 
+    const [searchParams] = useSearchParams()
+    const mode = searchParams.get('mode')
+
+    useEffect(() => {
+        if (mode == 'register') {
+            setIsLogin(false)
+        }
+        else {
+            setIsLogin(true)
+        }
+    }, [mode])
+
     const handleLogin = (e) => {
         e.preventDefault()
-        if (username === 'admin' && password === 'admin') {
+
+        const token = loginUser(username, password)
+        if (token) {
             navigate('/hello')
+            localStorage.setItem('username', username)
+            localStorage.setItem('email', email)
+            localStorage.setItem('password', password)
         }
         else {
             alert('incorrect data')
         }
     }
-
     const handleRegister = (e) => {
         e.preventDefault()
 
-        
+        registerUser({
+            username,
+            email,
+            password
+        })
+        alert('registration successful')
+        setIsLogin(true)
     }
-
+    
+    
     return(
         <div className={styles.wrapper}>
             <div className={styles.container}>
@@ -65,7 +91,7 @@ export default function Auth_form() {
                             <input className={`${styles.input_element} ${styles.password}`} id='password_input' placeholder='Password' type='password' required
                             onChange={(e) => setPassword(e.target.value)} />
                         </div>
-                        <button onClick={handleRegister} className={styles.submit_btn} id='submit_btn' type='submit'>Register</button>
+                        <button onClick={handleRegister} className={styles.submit_btn} id='submit_btn' type='button'>Register</button>
                         <p>Already have an account? <a className={styles.text} href='#' onClick={(e) => { e.preventDefault(); setIsLogin(true) }}>Sign in</a></p>
                     </form>
                 </div>
@@ -73,4 +99,4 @@ export default function Auth_form() {
         </div>
 
         )
-    }
+}
