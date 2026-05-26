@@ -15,11 +15,12 @@ pip install -r requirements.txt
 # Frontend setup (React + Vite)
 # ----------------------------
 echo "Тут моя хуйня фронтендерская"
-
 cd frontend
 npm install
 npm install react-router-dom
 npm install react-icons
+npm install @react-oauth/google@latest
+npm install recharts
 cd ..
 
 echo "Все готово. Здоровья погибшим"
@@ -32,3 +33,5 @@ echo ""
 echo "Вот так вот запустить фронтенд:"
 echo "  cd frontend"
 echo "  npm run dev"
+
+
