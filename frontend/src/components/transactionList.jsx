@@ -1,6 +1,7 @@
 import styles from "../pages/dashboard.module.css";
 
-function TransactionList({ transactions }) {
+export default function TransactionList({ transactions, onDelete }) {
+  
   return (
     <div className={styles.transactions}>
       {transactions.length === 0 && (
@@ -15,6 +16,7 @@ function TransactionList({ transactions }) {
               ? styles.income
               : styles.expense
           }`}>
+          <button className={styles.delete_btn} onClick={() => onDelete(transaction.id)}>X</button>
           <h3>{transaction.name}</h3>
           <p><strong>Type:</strong>{" "}{transaction.type}</p>
           <p><strong>Amount:</strong> ${transaction.amount}</p>
@@ -22,7 +24,5 @@ function TransactionList({ transactions }) {
         </div>
       ))}
     </div>
-  );
+  )
 }
-
-export default TransactionList;
