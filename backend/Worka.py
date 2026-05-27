@@ -1,5 +1,6 @@
 import sqlite3
 from datetime import datetime, timedelta
+from werkzeug.security import generate_password_hash, check_password_hash
 
 DB_PATH = 'finance.db'
 
