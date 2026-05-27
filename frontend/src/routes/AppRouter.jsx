@@ -20,7 +20,7 @@ export default function AppRouter() {
                 </ProtectedRoute>} />
             <Route path='/login' element={<Auth_form />} />
             <Route path='/about' element={<About />} />
-            <Route path='/:username' element={
+            <Route path='/user/:username' element={
                 <ProtectedRoute>
                     <Profile />
                 </ProtectedRoute>} />

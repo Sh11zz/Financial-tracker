@@ -1,56 +1,91 @@
 .wrapper {
-    background-color: rgb(43, 42, 42);
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(
+      circle at top,
+      #1a1a1a 0%,
+      #0b0b0b 60%,
+      #000000 100%
+  );
+  padding: 40px;
 }
-
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    min-height: 100%;
-    gap: 20px;
+  width: 100%;
+  max-width: 650px;
+  background: rgba(20, 20, 20, 0.85);
+  border: 1px solid #2a2a2a;
+  border-radius: 18px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  color: white;
 }
-
 .header {
-    font-size: 70px;
-    padding-bottom: 30px;
-    color:rgb(200, 202, 204)
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  color: #ffffff;
 }
 
 .text_container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 12px;
+  margin-bottom: 25px;
 }
 
 .text {
-    font-size: 30px;
+  margin: 0;
+  font-size: 15px;
+  color: #b5b5b5;
+  line-height: 1.6;
+}
+
+.text_1 {
+  color: #d6d6d6;
+  font-weight: 500;
+}
+
+.text_2 {
+  margin-top: 6px;
+}
+
+.text_3 {
+  margin-top: 6px;
+}
+
+.list_box {
+    margin: 25px 0;
+    padding: 18px;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    background: #121212;
+}
+
+.dolboebi_list {
+    margin: 0;
+    padding-left: 18px;
 }
 
 .item {
-    background: #1a1a1a;
-    color: white;
-    padding: 10px;
-    margin: 5px 0;
-    list-style: none;
-    width: 400px;
+    margin-bottom: 8px;
+    color: #cfcfcf;
+    font-size: 14px;
+    line-height: 1.5;
 }
-
-.list_name {
-    font-size: 40px;
-}
-
 .route_btn {
-    height: 44px;
-    width: 405px;
-    border-radius: 15px;
-    background-color: transparent;
-    border-color: rgb(242, 242, 242);
-    color: rgb(241, 241, 241);
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #2a2a2a;
+    background-color: #121212;
+    color: white;
+    border-radius: 12px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    margin-top: 10px;
+}
+.route_btn:hover {
+    background: linear-gradient(135deg, #2a2a2a, #161616);
+    transform: translateY(-1px);
 }

@@ -16,8 +16,8 @@ export default function Profile() {
             <div className={styles.container}>
                 <p className={`${styles.username} ${styles.item}`}>Username: {username}</p>
                 <p className={`${styles.email} ${styles.item}`}>Email: {email}</p>
-                <p className={`${styles.password} ${styles.item}`}>Password: {password}</p>
-                <button className={styles.btn} onClick={redirect}><span>Go back</span></button>
+                <p className={`${styles.password} ${styles.item}`}>Password: {password}</p>         
+                <button className={styles.btn1} onClick={redirect}><span>Go back</span></button>
             </div>
         </div>
     )

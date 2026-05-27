@@ -50,6 +50,7 @@
     border: none;
     color: white;
     font-size: 26px;
+    cursor: pointer;
 }
 
 .login_btn:hover {
@@ -63,6 +64,7 @@
     border-radius: 15px;
     border-color: transparent;
     color: #171616;
+    cursor: pointer;
 }
 
 .reg_btn span {
@@ -113,6 +115,7 @@
     background-color: transparent;
     border: solid white 1px;
     margin-top: 50px;
+    cursor: pointer;
 }
 
 .reg_btn_2:hover span {

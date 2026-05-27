@@ -28,15 +28,17 @@ export const registerUser = ({ username, email, password }) => {
 }
 
 export const logoutUser = (navigate) => {
-    localStorage.removeItem('token')
-    navigate('/')
+    localStorage.removeItem("token");
+    navigate("/");
 }
 
 export const getToken = () => {
-    return JSON.parse(localStorage.getItem('token'))
-}
+    const token = localStorage.getItem("token");
+    return token ? JSON.parse(token) : null;
+};
 
 export const isAuthenticated = () => {
-    const token = getToken()
-    return token && Date.now() < token.exp
-}
+    const token = getToken();
+    if (!token) return false;
+    return Date.now() < token.exp;
+};
