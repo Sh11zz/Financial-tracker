@@ -4,7 +4,7 @@ import styles from '../pages/home.module.css'
 export default function Center() {
     const navigate = useNavigate()
     const register = () => {
-        navigate('/login')
+        navigate('/login?mode=register')
     }
     
     return(

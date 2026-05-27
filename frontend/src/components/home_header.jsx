@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom'
 export default function Header() {
     const navigate = useNavigate()
     const login = () => {
-        navigate('/login')
+        navigate('/login?mode=login')
     }
 
     const register = () => {
-        navigate ('/login')
+        navigate('/login?mode=register')
     }
 
     return(
