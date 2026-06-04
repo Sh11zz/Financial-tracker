@@ -1,7 +1,7 @@
 import styles from "../pages/dashboard.module.css";
 
 export default function TransactionList({ transactions, onDelete }) {
-  
+
   return (
     <div className={styles.transactions}>
       {transactions.length === 0 && (
@@ -19,7 +19,7 @@ export default function TransactionList({ transactions, onDelete }) {
           <button className={styles.delete_btn} onClick={() => onDelete(transaction.id)}>X</button>
           <h3>{transaction.name}</h3>
           <p><strong>Type:</strong>{" "}{transaction.type}</p>
-          <p><strong>Amount:</strong> ${transaction.amount}</p>
+          <p><strong>Amount:</strong> ₽{transaction.amount}</p>
           {transaction.type === "expense" && (<p><strong>Category:</strong>{" "}{transaction.category}</p>)}
         </div>
       ))}

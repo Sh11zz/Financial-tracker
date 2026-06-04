@@ -29,6 +29,19 @@
   font-weight: bold;
 }
 
+.currency_btn {
+  color: transparent;
+  background-color: transparent;
+  border: 0px transparent;
+  cursor: pointer;
+}
+
+.faWallet {
+  color: white;
+  padding-right: 4px;
+  font-size: 15px;
+}
+
 .h1 {
   margin-bottom: 5px;
 }
@@ -193,3 +206,4 @@
   transition: all 0.2s ease;
   backdrop-filter: blur(6px);
 }
+

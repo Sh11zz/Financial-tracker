@@ -12,6 +12,8 @@ const STORAGE_KEY = "transactions";
 
 export default function Dashboard() {
 
+    let currency = '₽' 
+
     const [transactions, setTransactions] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved) : [];
@@ -48,12 +50,16 @@ export default function Dashboard() {
     navigate(`/user/${username}`)
     }
 
+    function button() {
+        console.log('aaaaa')
+    }
+
     return (
     <div className={styles.container}>
         <div className={styles.header}>
                 <h1 className={styles.h1}>FinTrack</h1>
             <div className={styles.balance}>
-                <FaWallet /><span>${balance}</span>
+                <FaWallet/><span>{currency}{balance}</span>
             </div>
         </div>
         <button className={styles.profile_btn} onClick={redirect}>Profile</button>
