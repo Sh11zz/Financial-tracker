@@ -1,44 +1,91 @@
-export const loginUser = (username, password) => {
-    const savedUser = JSON.parse(localStorage.getItem('user'))
+export async function registerUser(userData) {
 
-    if (savedUser && 
-        username === savedUser.username &&
-        password === savedUser.password
-    ) 
-    {
-            const fakeToken = {
-                token: 'fake-jwt-token',
-                username: username,
-                exp: Date.now() + 1000 * 60 * 60
+    try {
+
+        const response = await fetch(
+            "http://localhost:8000/register",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userData)
             }
-            localStorage.setItem('token', JSON.stringify(fakeToken))
-        return fakeToken
-    } 
-    return null
-}
+        );
 
-export const registerUser = ({ username, email, password }) => {
-    const user = {
-        username,
-        email,
-        password
+        const data = await response.json();
+
+        return data;
+
+    } catch (error) {
+
+        console.error(error);
+
+        return {
+            error: "Server error"
+        };
     }
-    localStorage.setItem('user', JSON.stringify(user))
-    return user
 }
 
-export const logoutUser = (navigate) => {
-    localStorage.removeItem("token");
+
+export async function loginUser(
+    username,
+    password
+) {
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:8000/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        return data;
+
+    } catch (error) {
+
+        console.error(error);
+
+        return {
+            error: "Server error"
+        };
+    }
+}
+
+
+export function logoutUser(navigate) {
+
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("username");
+
     navigate("/");
 }
 
-export const getToken = () => {
-    const token = localStorage.getItem("token");
-    return token ? JSON.parse(token) : null;
-};
 
-export const isAuthenticated = () => {
-    const token = getToken();
-    if (!token) return false;
-    return Date.now() < token.exp;
-};
+export function getCurrentUser() {
+
+    return {
+        user_id: localStorage.getItem("user_id"),
+        username: localStorage.getItem("username")
+    };
+}
+
+
+export function isAuthenticated() {
+
+    const userId =
+        localStorage.getItem("user_id");
+
+    return !!userId;
+}

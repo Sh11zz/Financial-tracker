@@ -10,6 +10,7 @@ source .venv/bin/activate
 
 pip install --upgrade pip
 pip install -r requirements.txt
+pip install psycopg2
 
 # ----------------------------
 # Frontend setup (React + Vite)

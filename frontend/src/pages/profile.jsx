@@ -1,24 +1,51 @@
-import styles from './profile.module.css'
-import { useNavigate } from 'react-router-dom'
+import styles from "./profile.module.css";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Profile() {
-    const username = localStorage.getItem('username')
-    const email = localStorage.getItem('email')
-    const password = localStorage.getItem('password')
 
-    const navigate = useNavigate()
-    const redirect = () => {
-        navigate('/hello')
+    const [user, setUser] = useState(null);
+
+    const navigate = useNavigate();
+
+useEffect(() => {
+
+    const userId =
+        localStorage.getItem("user_id");
+
+    console.log("userId:", userId);
+
+    fetch(`http://localhost:8000/user/${userId}`)
+        .then((res) => {
+            console.log("status:", res.status);
+            return res.json();
+        })
+        .then((data) => {
+            console.log("data:", data);
+            setUser(data);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+
+}, []);
+
+    function redirect() {
+        navigate("/hello");
     }
 
-    return(
+    if (!user) {
+        return <h2>Loading...</h2>;
+    }
+
+    return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <p className={`${styles.username} ${styles.item}`}>Username: {username}</p>
-                <p className={`${styles.email} ${styles.item}`}>Email: {email}</p>
-                <p className={`${styles.password} ${styles.item}`}>Password: {password}</p>         
-                <button className={styles.btn1} onClick={redirect}><span>Go back</span></button>
+                <p className={styles.item}>Username: {user.username}</p>
+                <p className={styles.item}>Email: {user.email}</p>
+                <p className={styles.item}>Password: {user.password}</p>
+                <button className={styles.btn1} onClick={redirect}>Go back</button>
             </div>
         </div>
-    )
+    );
 }

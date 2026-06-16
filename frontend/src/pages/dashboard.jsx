@@ -8,16 +8,37 @@ import { FaWallet } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-const STORAGE_KEY = "transactions";
-
 export default function Dashboard() {
 
-    let currency = '₽' 
+    const [currency, setCurrency] = useState("₽");
+    const [transactions, setTransactions] = useState([]);
 
-    const [transactions, setTransactions] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : [];
-    });
+    function toggleCurrency() {
+        setCurrency((prev) =>
+            prev === "₽" ? "$" : "₽"
+        );
+    }
+
+    useEffect(() => {
+        loadTransactions();
+    }, []);
+
+    async function loadTransactions() {
+        const userId =
+        localStorage.getItem(
+            "user_id"
+        );
+
+        const response =
+        await fetch(
+            `http://localhost:8000/transactions/${userId}`
+        );
+
+        const data =
+        await response.json();
+
+        setTransactions(data);
+    }
 
     const balance = transactions.reduce((acc, t) => {
     const amount = Number(t.amount);
@@ -26,24 +47,53 @@ export default function Dashboard() {
         : acc - amount;
 }, 0);
 
-    useEffect(() => {
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(transactions)
-    );
-    }, [transactions]);
+
     
     const [isModalOpen, setIsModalOpen] = useState(false); 
     
     const navigate = useNavigate()
     const username = localStorage.getItem('username')
 
-    function addTransaction(transaction) {
-    setTransactions((prev) => [...prev, transaction]);
-    }
+    async function addTransaction(
+    transaction
+) {
 
-    function deleteTransaction(id) {
-    setTransactions((prev) => prev.filter((t) => t.id !== id))
+    const userId =
+        localStorage.getItem(
+            "user_id"
+        );
+
+        await fetch(
+            "http://localhost:8000/transactions",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+                body: JSON.stringify({
+                    ...transaction,
+                    user_id: userId
+                })
+            }
+        );
+
+         await loadTransactions();
+    setIsModalOpen(false);
+
+        loadTransactions();
+    }
+    
+    async function deleteTransaction(id) {
+
+        await fetch(
+            `http://localhost:8000/transactions/${id}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        loadTransactions();
     }
 
     const redirect = () => {
@@ -59,7 +109,7 @@ export default function Dashboard() {
         <div className={styles.header}>
                 <h1 className={styles.h1}>FinTrack</h1>
             <div className={styles.balance}>
-                <FaWallet/><span>{currency}{balance}</span>
+                <FaWallet/><button onClick={toggleCurrency} className={styles.currency_btn}><span>{currency} {balance}</span></button>
             </div>
         </div>
         <button className={styles.profile_btn} onClick={redirect}>Profile</button>

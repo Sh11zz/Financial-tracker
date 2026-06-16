@@ -25,30 +25,59 @@ export default function Auth_form() {
         }
     }, [mode])
 
-    const handleLogin = (e) => {
-        e.preventDefault()
+const handleLogin = async (e) => {
+    e.preventDefault();
 
-        const token = loginUser(username, password)
-        if (token) {
-            navigate('/hello')
-            localStorage.setItem('username', username)
-            localStorage.setItem('email', email)
-            localStorage.setItem('password', password)
-        }
-        else {
-            alert('incorrect data')
-        }
-    }
-    const handleRegister = (e) => {
-        e.preventDefault()
-
-        registerUser({
+    try {
+        const user = await loginUser(
             username,
-            email,
             password
-        })
-        alert('registration successful')
-        setIsLogin(true)
+        );
+
+        if (user.error) {
+            alert(user.error);
+            return;
+        }
+
+        localStorage.setItem(
+            "user_id",
+            user.user_id
+        );
+
+        localStorage.setItem(
+            "username",
+            user.username
+        );
+
+        navigate("/hello");
+
+    } catch (error) {
+        console.error(error);
+        alert("Server error");
+    }
+};
+    const handleRegister = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await registerUser({
+                username,
+                email,
+                password
+            });
+
+            if (response.error) {
+                alert(response.error);
+                return;
+            }
+
+            alert("Registration successful");
+            setIsLogin(true);
+
+        } catch (error) {
+            console.error(error);
+            alert("Server error");
+        }
     }
     
     
