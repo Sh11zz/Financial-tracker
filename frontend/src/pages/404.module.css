@@ -36,4 +36,7 @@
 .home_btn:hover {
     color: white;
     border-color: white;
+    display: inline-block;
+    transition: 0.2s ease;
+    font-size: 15px;
 }

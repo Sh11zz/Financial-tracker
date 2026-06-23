@@ -103,7 +103,7 @@ const handleLogin = async (e) => {
                         <p>Don't have an account? <a className={styles.text} href='#' onClick={(e) => { e.preventDefault(); setIsLogin(false) }}>Sign up</a></p>
                     </form>
     {/* register form */}
-                    <form className={`${styles.form} ${styles.signup_form}`}>
+                    <form className={`${styles.form} ${styles.signup_form}`} onSubmit={handleRegister}>
                         <h2 className={styles.title}>Sign up</h2>
                         <div className={styles.input_field}>
                             <FaUser className={styles.icon} />
@@ -120,7 +120,7 @@ const handleLogin = async (e) => {
                             <input className={`${styles.input_element} ${styles.password}`} id='password_input' placeholder='Password' type='password' required
                             onChange={(e) => setPassword(e.target.value)} />
                         </div>
-                        <button onClick={handleRegister} className={styles.submit_btn} id='submit_btn' type='button'>Register</button>
+                        <button className={styles.submit_btn} id='submit_btn' type='submit'>Register</button>
                         <p>Already have an account? <a className={styles.text} href='#' onClick={(e) => { e.preventDefault(); setIsLogin(true) }}>Sign in</a></p>
                     </form>
                 </div>
