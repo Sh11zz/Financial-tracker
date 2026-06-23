@@ -13,8 +13,6 @@ useEffect(() => {
     const userId =
         localStorage.getItem("user_id");
 
-    console.log("userId:", userId);
-
     fetch(`http://localhost:8000/user/${userId}`)
         .then((res) => {
             console.log("status:", res.status);

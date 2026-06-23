@@ -13,8 +13,7 @@ export default function About() {
                 <p className={styles.header}>Financial Tracker</p>
                 <div className={styles.text_container}>
                     <p className={`${styles.text} ${styles.text_1}`}>Веб-приложение для учета личных финансов.</p>
-                    <p className={`${styles.text} ${styles.text_2}`}>Пользователь фиксирует доходы и расходы, управляет счетами и</p>
-                    <p className={`${styles.text} ${styles.text_3}`}>категориями, а система предоставляет аналитику и отчеты</p>
+                    <p className={`${styles.text} ${styles.text_2}`}>Пользователь фиксирует доходы и расходы, управляет счетами и категориями</p>
                 </div>
                 <div className={styles.list_box}>
                     <ul className={styles.dolboebi_list}>

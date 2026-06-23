@@ -65,41 +65,15 @@ function TransactionModal({ onClose, onAdd }) {
           <option value="income">Income</option>
         </select>
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Transaction name"
-          value={formData.name}
-          onChange={handleChange}
-          className={styles.input}
-        />
+        <input type="text" name="name" placeholder="Transaction name" 
+        value={formData.name} onChange={handleChange} className={styles.input}/>
 
-        <input
-          type="number"
-          name="amount"
-          placeholder="Amount"
-          value={formData.amount}
-          onChange={handleChange}
-          className={styles.input}
-        />
+        <input type="number" name="amount" placeholder="Amount" 
+        value={formData.amount} onChange={handleChange} className={styles.input}/>
 
-        {formData.type === "expense" && (
-          <input
-            type="text"
-            name="category"
-            placeholder="Category"
-            value={formData.category}
-            onChange={handleChange}
-            className={styles.input}
-          />
-        )}
-
-        <button
-          className={styles.submitBtn}
-          onClick={handleSubmit}
-        >
-          Add
-        </button>
+        {formData.type === "expense" && (<input type="text" name="category" placeholder="Category" 
+          value={formData.category}onChange={handleChange}className={styles.input}/>)}
+        <button className={styles.submitBtn}onClick={handleSubmit}>Add</button>
       </div>
     </div>
   );
