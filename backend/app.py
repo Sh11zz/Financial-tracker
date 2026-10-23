@@ -1,20 +1,30 @@
+import traceback
+
 from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager
-from flask_cors import CORS
 
 from db import get_db
 
 app = Flask(__name__)
 
-CORS(app)
-
-app.config["JWT_SECRET_KEY"] = "idinahuy"
+app.config["JWT_SECRET_KEY"] = "441736679697101cbe98294a2f503867cabf4a4b0dadf21fa4176d90829c9537"
 
 jwt = JWTManager(app)
 
-@app.route("/")
-def index():
-    return "hello world"
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    return {
+        "error": str(e),
+        "type": type(e).__name__,
+        "traceback": traceback.format_exc()
+    }, 500
+
+
+@app.route("/health")
+def health():
+    return {"status": "ok"}
+
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -58,6 +68,7 @@ def register():
         cursor.close()
         conn.close()
 
+
 @app.route("/login", methods=["POST"])
 def login():
 
@@ -91,6 +102,7 @@ def login():
         "user_id": user[0],
         "username": user[1]
     }
+
 
 @app.route("/transactions", methods=["POST"])
 def add_transaction():
@@ -143,6 +155,7 @@ def add_transaction():
         cursor.close()
         conn.close()
 
+
 @app.route("/transactions/<int:user_id>")
 def get_transactions(user_id):
 
@@ -182,6 +195,7 @@ def get_transactions(user_id):
 
     return jsonify(result)
 
+
 @app.route("/transactions/<int:id>", methods=["DELETE"])
 def delete_transaction(id):
 
@@ -204,6 +218,7 @@ def delete_transaction(id):
     return {
         "message": "Transaction deleted"
     }
+
 
 @app.route("/user/<int:user_id>")
 def get_user(user_id):
@@ -232,8 +247,6 @@ def get_user(user_id):
         "password": user[3]
     }
 
+
 if __name__ == "__main__":
-    app.run(
-        debug=True,
-        port=8000
-    )
+    app.run(port=8000)

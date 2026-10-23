@@ -1,38 +1,19 @@
-echo "Сеттинг ап хуйню эту финтраковскую"
+#!/usr/bin/env bash
+# Local development setup (no Docker)
+set -euo pipefail
 
-# ----------------------------
-# Backend setup (Flask)
-# ----------------------------
-echo "Ставлю бэкенд (кто не сделает коммит, тот пидорас)"
-
+echo "Setting up backend..."
 python3 -m venv .venv
 source .venv/bin/activate
-
 pip install --upgrade pip
 pip install -r requirements.txt
-pip install psycopg2
 
-# ----------------------------
-# Frontend setup (React + Vite)
-# ----------------------------
-echo "Тут моя хуйня фронтендерская"
-cd frontend
-npm install
-npm install react-router-dom
-npm install react-icons
-npm install @react-oauth/google@latest
-npm install recharts
-cd ..
+echo "Setting up frontend..."
+(cd frontend && npm ci)
 
-echo "Все готово. Здоровья погибшим"
+[ -f .env ] || cp .env.example .env
+
 echo ""
-echo "Вот так вот запустить бэкенд:"
-echo "  source .venv/bin/activate"
-echo "  cd backend"
-echo "  python app.py"
-echo ""
-echo "Вот так вот запустить фронтенд:"
-echo "  cd frontend"
-echo "  npm run dev"
-
-
+echo "Done. Run:"
+echo "  backend:  source .venv/bin/activate && cd backend && python init_db.py && python app.py"
+echo "  frontend: cd frontend && npm run dev"

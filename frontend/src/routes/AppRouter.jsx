@@ -8,8 +8,6 @@ import About from '../pages/about.jsx'
 import Profile from '../pages/profile.jsx'
 
 export default function AppRouter() {
-    const username = localStorage.getItem('username')
-
     return(
         <Routes>
             <Route path='*' element={<Not_found />} />

@@ -1,17 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./dashboard.module.css";
 import TransactionModal from "../components/transactionModal.jsx";
 import TransactionList from "../components/transactionList.jsx";
 import { logoutUser } from "./auth/auth.service.js";
-import { FaUserAlt } from "react-icons/fa";
+import { apiFetch } from "../api.js";
 import { FaWallet } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
+async function fetchTransactions() {
+
+    const userId = localStorage.getItem("user_id");
+
+    const data = await apiFetch(`/transactions/${userId}`);
+
+    return Array.isArray(data) ? data : [];
+}
 
 export default function Dashboard() {
 
     const [currency, setCurrency] = useState("₽");
     const [transactions, setTransactions] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const navigate = useNavigate()
+    const username = localStorage.getItem('username')
 
     function toggleCurrency() {
         setCurrency((prev) =>
@@ -19,89 +31,51 @@ export default function Dashboard() {
         );
     }
 
+    async function loadTransactions() {
+        setTransactions(await fetchTransactions());
+    }
+
     useEffect(() => {
-        loadTransactions();
+        fetchTransactions().then(setTransactions);
     }, []);
 
-    async function loadTransactions() {
-        const userId =
-        localStorage.getItem(
-            "user_id"
-        );
-
-        const response =
-        await fetch(
-            `http://localhost:8000/transactions/${userId}`
-        );
-
-        const data =
-        await response.json();
-
-        setTransactions(data);
-    }
-
     const balance = transactions.reduce((acc, t) => {
-    const amount = Number(t.amount);
-    return t.type === "income"
-        ? acc + amount
-        : acc - amount;
-}, 0);
+        const amount = Number(t.amount);
+        return t.type === "income"
+            ? acc + amount
+            : acc - amount;
+    }, 0);
 
+    async function addTransaction(transaction) {
 
-    
-    const [isModalOpen, setIsModalOpen] = useState(false); 
-    
-    const navigate = useNavigate()
-    const username = localStorage.getItem('username')
+        const response = await apiFetch("/transactions", {
+            method: "POST",
+            body: JSON.stringify({
+                ...transaction,
+                user_id: localStorage.getItem("user_id")
+            })
+        });
 
-    async function addTransaction(
-    transaction
-) {
+        if (response.error) {
+            alert(response.error);
+            return;
+        }
 
-    const userId =
-        localStorage.getItem(
-            "user_id"
-        );
-
-        await fetch(
-            "http://localhost:8000/transactions",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-                body: JSON.stringify({
-                    ...transaction,
-                    user_id: userId
-                })
-            }
-        );
-
-         await loadTransactions();
-    setIsModalOpen(false);
-
-        loadTransactions();
+        setIsModalOpen(false);
+        await loadTransactions();
     }
-    
+
     async function deleteTransaction(id) {
 
-        await fetch(
-            `http://localhost:8000/transactions/${id}`,
-            {
-                method: "DELETE"
-            }
-        );
+        await apiFetch(`/transactions/${id}`, {
+            method: "DELETE"
+        });
 
-        loadTransactions();
+        await loadTransactions();
     }
 
     const redirect = () => {
-    navigate(`/user/${username}`)
-    }
-
-    function button() {
-        console.log('aaaaa')
+        navigate(`/user/${username}`)
     }
 
     return (

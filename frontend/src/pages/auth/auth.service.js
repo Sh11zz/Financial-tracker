@@ -1,25 +1,15 @@
+import { apiFetch } from "../../api.js";
+
 export async function registerUser(userData) {
 
     try {
 
-        const response = await fetch(
-            "http://localhost:8000/register",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(userData)
-            }
-        );
+        return await apiFetch("/register", {
+            method: "POST",
+            body: JSON.stringify(userData)
+        });
 
-        const data = await response.json();
-
-        return data;
-
-    } catch (error) {
-
-        console.error(error);
+    } catch {
 
         return {
             error: "Server error"
@@ -35,27 +25,15 @@ export async function loginUser(
 
     try {
 
-        const response = await fetch(
-            "http://localhost:8000/login",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username,
-                    password
-                })
-            }
-        );
+        return await apiFetch("/login", {
+            method: "POST",
+            body: JSON.stringify({
+                username,
+                password
+            })
+        });
 
-        const data = await response.json();
-
-        return data;
-
-    } catch (error) {
-
-        console.error(error);
+    } catch {
 
         return {
             error: "Server error"
@@ -73,19 +51,7 @@ export function logoutUser(navigate) {
 }
 
 
-export function getCurrentUser() {
-
-    return {
-        user_id: localStorage.getItem("user_id"),
-        username: localStorage.getItem("username")
-    };
-}
-
-
 export function isAuthenticated() {
 
-    const userId =
-        localStorage.getItem("user_id");
-
-    return !!userId;
+    return !!localStorage.getItem("user_id");
 }

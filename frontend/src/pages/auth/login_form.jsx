@@ -1,34 +1,31 @@
 import styles from '../login.module.css'
 import { FaUser, FaLock, FaAt } from 'react-icons/fa'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { loginUser, registerUser } from './auth.service'
 import { useSearchParams } from 'react-router-dom'
 
 export default function Auth_form() {
-    const [isLogin, setIsLogin] = useState(true)
+    const [searchParams] = useSearchParams()
+    const mode = searchParams.get('mode')
+
+    const [isLogin, setIsLogin] = useState(mode !== 'register')
+    const [prevMode, setPrevMode] = useState(mode)
     const navigate = useNavigate()
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
 
-    const [searchParams] = useSearchParams()
-    const mode = searchParams.get('mode')
+    // Sync the form with ?mode= when the user navigates between login/register links
+    if (mode !== prevMode) {
+        setPrevMode(mode)
+        setIsLogin(mode !== 'register')
+    }
 
-    useEffect(() => {
-        if (mode == 'register') {
-            setIsLogin(false)
-        }
-        else {
-            setIsLogin(true)
-        }
-    }, [mode])
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
-const handleLogin = async (e) => {
-    e.preventDefault();
-
-    try {
         const user = await loginUser(
             username,
             password
@@ -50,37 +47,26 @@ const handleLogin = async (e) => {
         );
 
         navigate("/hello");
+    };
 
-    } catch (error) {
-        console.error(error);
-        alert("Server error");
-    }
-};
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        try {
-            const response = await registerUser({
-                username,
-                email,
-                password
-            });
+        const response = await registerUser({
+            username,
+            email,
+            password
+        });
 
-            if (response.error) {
-                alert(response.error);
-                return;
-            }
-
-            alert("Registration successful");
-            setIsLogin(true);
-
-        } catch (error) {
-            console.error(error);
-            alert("Server error");
+        if (response.error) {
+            alert(response.error);
+            return;
         }
+
+        alert("Registration successful");
+        setIsLogin(true);
     }
-    
-    
+
     return(
         <div className={styles.wrapper}>
             <div className={styles.container}>

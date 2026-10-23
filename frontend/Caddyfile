@@ -1,0 +1,15 @@
+# SITE_ADDRESS=fintrack.example.com -> automatic HTTPS via Let's Encrypt
+# unset -> plain HTTP on port 80
+{$SITE_ADDRESS::80} {
+	encode zstd gzip
+
+	handle_path /api/* {
+		reverse_proxy backend:8000
+	}
+
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+}

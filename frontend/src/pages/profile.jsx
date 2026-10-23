@@ -1,6 +1,7 @@
 import styles from "./profile.module.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { apiFetch } from "../api.js";
 
 export default function Profile() {
 
@@ -8,25 +9,11 @@ export default function Profile() {
 
     const navigate = useNavigate();
 
-useEffect(() => {
+    useEffect(() => {
+        const userId = localStorage.getItem("user_id");
 
-    const userId =
-        localStorage.getItem("user_id");
-
-    fetch(`http://localhost:8000/user/${userId}`)
-        .then((res) => {
-            console.log("status:", res.status);
-            return res.json();
-        })
-        .then((data) => {
-            console.log("data:", data);
-            setUser(data);
-        })
-        .catch((err) => {
-            console.error(err);
-        });
-
-}, []);
+        apiFetch(`/user/${userId}`).then(setUser);
+    }, []);
 
     function redirect() {
         navigate("/hello");

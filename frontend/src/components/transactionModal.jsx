@@ -1,8 +1,6 @@
 import { useState } from "react";
 import styles from '../pages/dashboard.module.css'
 
-const balance = 0
-
 function TransactionModal({ onClose, onAdd }) {
   const [formData, setFormData] = useState({
     type: "expense",
